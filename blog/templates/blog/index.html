@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">
+    {% if current_diet %}
+        {% for value, label in diet_choices %}
+            {% if value == current_diet %}{{ label }}{% endif %}
+        {% endfor %}
+    {% else %}
+        Все динозавры
+    {% endif %}
+</h1>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for dino in dinosaurs %}
+    <div class="col">
+        <div class="card h-100">
+            {% if dino.image %}
+            <img src="{{ dino.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;" alt="{{ dino.name }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ dino.name }}</h5>
+                <p><strong>Период:</strong> {{ dino.period }}</p>
+                <p><strong>Питание:</strong> {{ dino.get_diet_display|default:"не указано" }}</p>
+                <p>{{ dino.description|striptags|truncatewords:20 }}</p>
+                <a href="{{ dino.get_absolute_url }}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Нет динозавров в этой категории.</p>
+    {% endfor %}
+</div>
+{% endblock %}

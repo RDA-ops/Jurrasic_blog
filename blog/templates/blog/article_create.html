@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>📝 Создать статью</h2>
+        <form method="post" enctype="multipart/form-data" class="mt-4">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="id_title" class="form-label">Заголовок</label>
+                {{ form.title }}
+            </div>
+            
+            <div class="mb-3">
+                <label for="id_content" class="form-label">Содержание</label>
+                {{ form.content }}
+            </div>
+            
+            <div class="mb-3">
+                <label for="id_image" class="form-label">Изображение</label>
+                {{ form.image }}
+            </div>
+            
+            <div class="mb-3">
+                <label for="id_category" class="form-label">Категория</label>
+                {{ form.category }}
+            </div>
+            
+            <div class="mb-3 form-check">
+                {{ form.is_published }}
+                <label for="id_is_published" class="form-check-label">Опубликовано</label>
+            </div>
+            
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <a href="{% url 'blog:article_list' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">📂 Периоды</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for period in periods %}
+        <li class="list-group-item">
+            <a href="?period={{ period }}">{{ period }}</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">Нет периодов</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="card">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">🦖 Последние записи</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for dino in recent_dinosaurs %}
+        <li class="list-group-item">
+            <a href="{{ dino.get_absolute_url }}">{{ dino.name }}</a>
+            <small class="text-muted d-block">{{ dino.created_at|date:"d.m.Y" }}</small>
+        </li>
+        {% empty %}
+        <li class="list-group-item">Нет динозавров</li>
+        {% endfor %}
+    </ul>
+</div>

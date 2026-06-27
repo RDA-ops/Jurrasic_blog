@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ dino.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        {% if dino.image %}
+        <img src="{{ dino.image.url }}" class="img-fluid rounded" alt="{{ dino.name }}">
+        {% else %}
+        <div class="alert alert-info">Изображение отсутствует</div>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <h1>{{ dino.name }}</h1>
+        <p><strong>Период:</strong> {{ dino.period|default:"не указан" }}</p>
+        <p><strong>Питание:</strong> {{ dino.get_diet_display|default:"не указано" }}</p>
+        <p>{{ dino.description|linebreaks }}</p>
+        <p><small class="text-muted">Добавлено: {{ dino.created_at|date:"d.m.Y H:i" }}</small></p>
+        <a href="{% url 'blog:index' %}" class="btn btn-secondary">Назад к списку</a>
+    </div>
+</div>
+{% endblock %}
